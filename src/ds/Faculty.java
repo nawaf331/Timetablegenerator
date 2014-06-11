@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ds;
 
 import java.util.Vector;
@@ -13,19 +12,21 @@ import java.util.Vector;
  * @author raat
  */
 public class Faculty {
-    public Vector<String> fid ;
+
+    public Vector<String> fid;
     public Vector<String> name;
-    
-    public Faculty(){
-        fid = new Vector<String>() ;
+
+    public Faculty() {
+        fid = new Vector<String>();
         name = new Vector<String>();
     }
-    public String getFID(int i){
+
+    public String getFID(int i) {
         return fid.get(i);
     }
-    
-    public String getFName(int i){
+
+    public String getFName(int i) {
         return name.get(i);
     }
-    
+
 }

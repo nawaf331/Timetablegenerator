@@ -4,12 +4,10 @@
  */
 package Forms;
 
-
 import Main.extractFacultyNames;
 
 import ds.Faculty;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -20,7 +18,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -34,13 +31,15 @@ import run.DBConnectTT;
  * @author Raat
  */
 public class LecturerForm extends javax.swing.JFrame {
-int row;
-DefaultTableModel lectureTableModel;
+
+    int row;
+    DefaultTableModel lectureTableModel;
     /*
      * Creates new form Lecturer
      */
+
     public LecturerForm() {
-       
+
         initComponents();
         this.setTitle("Add Faculty Details");
         this.pack();
@@ -51,7 +50,7 @@ DefaultTableModel lectureTableModel;
         lectureTableModel.addColumn("Name:");
         lectureTableModel.setRowCount(0);
         retrievTableContents();
-        
+
     }
 
     /**
@@ -228,7 +227,7 @@ DefaultTableModel lectureTableModel;
         Statement st = null;
         DBConnectTT.getConnection();
         con = DBConnectTT.connection;
-          //Create a file chooser
+        //Create a file chooser
         Faculty f;
         JFileChooser fc = null;
         String inFile;
@@ -252,33 +251,32 @@ DefaultTableModel lectureTableModel;
             f = e.getNameList(inFile);
             //System.out.println("FILE USN SIZE : " + FileUsn.size());
             for (int i = 0; i < f.fid.size(); i++) {
-               System.out.println("id" + i + " : " +f.getFID(i) );
-             //   list.addElement(FileUsn.get(i));
-               String query = "insert into "+DBInterfaceTT.TT_FACULTY_DETAILS + " values ( '" + f.getFID(i) +"','"+ f.getFName(i) +"') ";
+                System.out.println("id" + i + " : " + f.getFID(i));
+                //   list.addElement(FileUsn.get(i));
+                String query = "insert into " + DBInterfaceTT.TT_FACULTY_DETAILS + " values ( '" + f.getFID(i) + "','" + f.getFName(i) + "') ";
                 try {
                     st = con.createStatement();
                     st.executeUpdate(query);
-                    System.out.println(f.getFName(i) +" inserted");
+                    System.out.println(f.getFName(i) + " inserted");
                 } catch (SQLException ex) {
-                    System.out.println("Errr :"+ex.getMessage());
-                 //   Logger.getLogger(Lecturer.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Errr :" + ex.getMessage());
+                    //   Logger.getLogger(Lecturer.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
             for (int i = 0; i < f.name.size(); i++) {
-               System.out.println("NAME" + i + " : " +f.getFName(i) );
-             //   list.addElement(FileUsn.get(i));
+                System.out.println("NAME" + i + " : " + f.getFName(i));
+                //   list.addElement(FileUsn.get(i));
             }
-            
+
             //List_Usn.setModel(list);
             //modified = true;
-
         } else {
             System.out.println("Open command cancelled by user.");
         }
         retrievTableContents();
         setCursor(Cursor.getDefaultCursor());
-    
+
 
     }//GEN-LAST:event_bLoadFromFileActionPerformed
 
@@ -288,63 +286,60 @@ DefaultTableModel lectureTableModel;
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void bClearAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bClearAllActionPerformed
-    
+
         // TODO add your handling code here:
-        if(JOptionPane.showConfirmDialog(null, "Are you sure? It will clear all the records", "Are you sure?", JOptionPane.OK_CANCEL_OPTION) != 0 ){
+        if (JOptionPane.showConfirmDialog(null, "Are you sure? It will clear all the records", "Are you sure?", JOptionPane.OK_CANCEL_OPTION) != 0) {
             return;
         }
         Connection con = null;
         Statement stmt = null;
         DBConnectTT.getConnection();
         con = DBConnectTT.connection;
-        
-        
-   
-            try {
-                stmt = con.createStatement();
-                stmt.executeUpdate("delete from "+DBInterfaceTT.TT_FACULTY_DETAILS);
-            } catch (SQLException ex) {
-                Logger.getLogger(LecturerForm.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+        try {
+            stmt = con.createStatement();
+            stmt.executeUpdate("delete from " + DBInterfaceTT.TT_FACULTY_DETAILS);
+        } catch (SQLException ex) {
+            Logger.getLogger(LecturerForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         retrievTableContents();
-     
+
     }//GEN-LAST:event_bClearAllActionPerformed
 
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
         // TODO add your handling code here:
         String fid = tfFID.getText();
         String fname = tfFName.getText();
-        
+
         Connection con = null;
         Statement stmt = null;
-        
-        if(!(fid.equals("") || fname.equals(""))){
-        
+
+        if (!(fid.equals("") || fname.equals(""))) {
+
             try {
                 DBConnectTT.getConnection();
                 con = DBConnectTT.connection;
-                
-                stmt= con.createStatement();
-                stmt.executeUpdate("insert into "+DBInterfaceTT.TT_FACULTY_DETAILS+" values ('"+fid+"' ,'"+fname+"')");
-                        
-                        } catch (SQLException ex) {
+
+                stmt = con.createStatement();
+                stmt.executeUpdate("insert into " + DBInterfaceTT.TT_FACULTY_DETAILS + " values ('" + fid + "' ,'" + fname + "')");
+
+            } catch (SQLException ex) {
                 Logger.getLogger(LecturerForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-             
-      }
-        else{
+
+        } else {
             JOptionPane.showMessageDialog(this, "Fields Cannot be empty", "Error", JOptionPane.OK_OPTION);
         }
-        
-       retrievTableContents();
-    ;
-        
+
+        retrievTableContents();
+        ;
+
     }//GEN-LAST:event_bAddActionPerformed
 
     /**
      * @param args the command line arguments
      */
-  
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable LectureDetailTable;
     private javax.swing.JButton bAdd;
@@ -363,7 +358,6 @@ DefaultTableModel lectureTableModel;
     // End of variables declaration//GEN-END:variables
 
     private void saveCurrentDirectory(String absolutePath) {
-   
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(".previouslySelectedDirectory.txt"));
@@ -394,36 +388,32 @@ DefaultTableModel lectureTableModel;
     }
 
     private void retrievTableContents() {
-      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    Connection con = null;
-    lectureTableModel.setRowCount(0);
-    Statement stmt = null;
-    ResultSet rs = null;
-    int rowCount = 0;
-    DBConnectTT.getConnection();
-    con = DBConnectTT.connection;
-    String q = "Select * from "+DBInterfaceTT.TT_FACULTY_DETAILS;
-    
-    try {
-        stmt= con.createStatement();
-        rs = stmt.executeQuery(q);
-        
-        while(rs.next()){
-            String id = rs.getString(DBInterfaceTT.TT_F_ID);
-            String name = rs.getString(DBInterfaceTT.TT_F_NAME);
-            lectureTableModel.insertRow(rowCount++, new Object[]{id,name});
-            LectureDetailTable.setModel(lectureTableModel);
-            
+        //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection con = null;
+        lectureTableModel.setRowCount(0);
+        Statement stmt = null;
+        ResultSet rs = null;
+        int rowCount = 0;
+        DBConnectTT.getConnection();
+        con = DBConnectTT.connection;
+        String q = "Select * from " + DBInterfaceTT.TT_FACULTY_DETAILS;
+
+        try {
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(q);
+
+            while (rs.next()) {
+                String id = rs.getString(DBInterfaceTT.TT_F_ID);
+                String name = rs.getString(DBInterfaceTT.TT_F_NAME);
+                lectureTableModel.insertRow(rowCount++, new Object[]{id, name});
+                LectureDetailTable.setModel(lectureTableModel);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(LecturerForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-    } catch (SQLException ex) {
-        Logger.getLogger(LecturerForm.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    
-    
-    
+
     }
 
-    
 }

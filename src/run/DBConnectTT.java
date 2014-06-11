@@ -15,7 +15,7 @@ public final class DBConnectTT implements DBInterfaceTT {
     public static String driver = "org.sqlite.JDBC";
     public static String DB_URL = "jdbc:sqlite:TimeTable.sqlite";
     public static Connection connection = null;
- 
+
     public static void getConnection() {
         try {
             Class.forName(driver);
@@ -31,12 +31,12 @@ public final class DBConnectTT implements DBInterfaceTT {
             //Logger.getLogger(DBConnectTT.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        Statement stmt, stmt1, stmt2,stmt3;
+        Statement stmt, stmt1, stmt2, stmt3;
 
-        String query1 = "CREATE TABLE " + TT_FACULTY_DETAILS + " ('" + TT_F_ID + "' VARCHAR PRIMARY KEY , '" + TT_F_NAME + "' VARCHAR NOT NULL  )" ;
-        String query2 = "CREATE TABLE " + TT_SUBJECT_DETAILS + " ('" + TT_SUB_CODE + "' VARCHAR PRIMARY KEY , '" + TT_SUB_SUBNAME + "' VARCHAR NOT NULL , '" + TT_SUB_TYPE + "' VARCHAR NOT NULL , '" + TT_SUB_FID + "' VARCHAR  , '" +TT_SUB_SEM + "' VARCHAR NOT NULL )";//, FOGEIGN KEY ("+ TT_SUB_FID + ") REFERENCES " + TT_FACULTY_DETAILS + " (" + TT_F_ID + ") ON DELETE CASCADE  )";
+        String query1 = "CREATE TABLE " + TT_FACULTY_DETAILS + " ('" + TT_F_ID + "' VARCHAR PRIMARY KEY , '" + TT_F_NAME + "' VARCHAR NOT NULL  )";
+        String query2 = "CREATE TABLE " + TT_SUBJECT_DETAILS + " ('" + TT_SUB_CODE + "' VARCHAR PRIMARY KEY , '" + TT_SUB_SUBNAME + "' VARCHAR NOT NULL , '" + TT_SUB_TYPE + "' VARCHAR NOT NULL , '" + TT_SUB_FID + "' VARCHAR  , '" + TT_SUB_SEM + "' VARCHAR NOT NULL )";//, FOGEIGN KEY ("+ TT_SUB_FID + ") REFERENCES " + TT_FACULTY_DETAILS + " (" + TT_F_ID + ") ON DELETE CASCADE  )";
         String query3 = "CREATE TABLE " + TT_CLASSROOM_DETAILS + " ('" + TT_CR_NO + "' VARCHAR PRIMARY KEY , '" + TT_CR_TYPE + "' VARCHAR NOT NULL , '" + TT_CR_STRENGTH + "' VARCHAR NOT NULL )";
-        String query4 = "CREATE TABLE " + TT_TT + "('" + TT_batch + "' INTEGER , '"+TT_rowid+"' INTEGER , '"+TT_colid+"' INTEGER ,'"+TT_code+"' VARCHAR )";
+        String query4 = "CREATE TABLE " + TT_TT + "('" + TT_batch + "' INTEGER , '" + TT_rowid + "' INTEGER , '" + TT_colid + "' INTEGER ,'" + TT_code + "' VARCHAR )";
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate(query1);
@@ -44,7 +44,7 @@ public final class DBConnectTT implements DBInterfaceTT {
         } catch (SQLException ex) {
             //Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
             //Forms.MainForm.log("Database attributes already exists");
-            System.out.println("DBCONNECT-GETconnection-try-catch"+ex.getMessage());
+            System.out.println("DBCONNECT-GETconnection-try-catch" + ex.getMessage());
         }
         try {
             stmt1 = connection.createStatement();
@@ -53,8 +53,8 @@ public final class DBConnectTT implements DBInterfaceTT {
         } catch (SQLException ex) {
             //Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
             //Forms.MainForm.log("Database attributes already exists");
-            System.out.println("DBCONNECT-GETconnection-try-catch"+ex.getMessage());
-        }    
+            System.out.println("DBCONNECT-GETconnection-try-catch" + ex.getMessage());
+        }
         try {
             stmt2 = connection.createStatement();
             stmt2.executeUpdate(query3);
@@ -62,7 +62,7 @@ public final class DBConnectTT implements DBInterfaceTT {
         } catch (SQLException ex) {
             //Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
             //Forms.MainForm.log("Database attributes already exists");
-            System.out.println("DBCONNECT-GETconnection-try-catch"+ex.getMessage());
+            System.out.println("DBCONNECT-GETconnection-try-catch" + ex.getMessage());
         }
         try {
             stmt3 = connection.createStatement();
@@ -71,13 +71,9 @@ public final class DBConnectTT implements DBInterfaceTT {
         } catch (SQLException ex) {
             //Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
             //Forms.MainForm.log("Database attributes already exists");
-            System.out.println("DBCONNECT-GETconnection-try-catch"+ex.getMessage());
-        } 
-            
-            
-            
-            
+            System.out.println("DBCONNECT-GETconnection-try-catch" + ex.getMessage());
+        }
+
 //            Forms.MainForm.log("Initializing Database : Successfull");
-        
     }
 }

@@ -3,22 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package TimeTable;
 
 /**
  *
- * @author ashik
+ * @author nawaf
  */
 class DaySlots {
+
     public static int noOfSlots = 7;
     public static int noOfDaysinAWeek = 6;
     public int daySlotId;
     public Slot slots[];
-    
-    public DaySlots(){
+
+    public DaySlots() {
         slots = new Slot[noOfSlots];
-        for(int i = 0;i<noOfSlots;i++){
+        for (int i = 0; i < noOfSlots; i++) {
             slots[i] = new Slot();
         }
     }

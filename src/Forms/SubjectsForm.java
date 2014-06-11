@@ -5,7 +5,6 @@
 package Forms;
 
 import Main.extractSubjectDetails;
-import ds.Faculty;
 import ds.Subjects;
 import java.awt.Cursor;
 import java.io.BufferedReader;
@@ -32,33 +31,35 @@ import run.DBInterfaceTT;
  * @author DELL
  */
 public class SubjectsForm extends javax.swing.JFrame {
+
     private final DefaultTableModel tmSubDetails;
     DefaultComboBoxModel<String> handleBy;
     int ttl = 0;
+
     /**
      * Creates new form Subjects
      */
     public SubjectsForm() {
         initComponents();
         handleBy = new DefaultComboBoxModel<String>();
-         this.setTitle("Add Subjects");
+        this.setTitle("Add Subjects");
 
         this.pack();
         this.setLocationRelativeTo(null);
         tmSubDetails = new DefaultTableModel();
         tSubjectTable.setModel(tmSubDetails);
         tmSubDetails.setRowCount(0);
-        
+
         tmSubDetails.addColumn("Sl No");
         tmSubDetails.addColumn("Code");
         tmSubDetails.addColumn("Name");
         tmSubDetails.addColumn("Type");
         tmSubDetails.addColumn("Sem");
         tmSubDetails.addColumn("Handled by");
-        
+
         retrievTableContents();
         fillHandleBy();
-        
+
     }
 
     /**
@@ -267,21 +268,20 @@ public class SubjectsForm extends javax.swing.JFrame {
     private void bLoadFromFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLoadFromFileActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "Upload any text file, containing subject details in each line\nFormate:\n\n<SUB CODE>,<SUBNAME>,<TYPE>,<SEM>,<FACULTY ID WHO HANDLE>\nTYPE must be either 'theory' or 'lab' both should be small case", "BIT-RAAT :  Help", JOptionPane.OK_OPTION);
-        
-          Connection con = null;
+
+        Connection con = null;
         Statement st = null;
         DBConnectTT.getConnection();
         con = DBConnectTT.connection;
-          //Create a file chooser
+        //Create a file chooser
         Subjects s;
         JFileChooser fc = null;
         String inFile;
-        try{
+        try {
             fc = new JFileChooser(previousDirectory());
-        
-        }
-        catch(IOException e){
-            
+
+        } catch (IOException e) {
+
         }
         //In response to a button click:
         int returnVal = fc.showOpenDialog(null);
@@ -297,33 +297,32 @@ public class SubjectsForm extends javax.swing.JFrame {
             //System.out.println("FILE USN SIZE : " + FileUsn.size());
             s = e.getSubjectDetails(inFile);
             //System.out.println("FILE USN SIZE : " + FileUsn.size());
-            
+
             //use s
-            
-           for(int i=0;i<s.subCode.size();i++){
-               
+            for (int i = 0; i < s.subCode.size(); i++) {
+
                 try {
-                    String query = "insert into "+DBInterfaceTT.TT_SUBJECT_DETAILS+" values ('"+s.subCode.get(i)+"','"+s.subName.get(i)+"','"+s.type.get(i)+"','"+s.fid.get(i)+"','"+s.sem.get(i)+"')";
+                    String query = "insert into " + DBInterfaceTT.TT_SUBJECT_DETAILS + " values ('" + s.subCode.get(i) + "','" + s.subName.get(i) + "','" + s.type.get(i) + "','" + s.fid.get(i) + "','" + s.sem.get(i) + "')";
                     st = con.createStatement();
                     st.executeUpdate(query);
-                    System.out.println(s.subName.get(i)+" is inserted");
+                    System.out.println(s.subName.get(i) + " is inserted");
                 } catch (SQLException ex) {
-                    System.out.println("err: "+ex.getMessage());
-                   // Logger.getLogger(SubjectsForm.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("err: " + ex.getMessage());
+                    // Logger.getLogger(SubjectsForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
-           }
+            }
         } else {
             System.out.println("Open command cancelled by user.");
         }
 
         retrievTableContents();
         setCursor(Cursor.getDefaultCursor());
-    
+
     }//GEN-LAST:event_bLoadFromFileActionPerformed
 
     private void bOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOkActionPerformed
         // TODO add your handling code here:
-        
+
         this.dispose();
     }//GEN-LAST:event_bOkActionPerformed
 
@@ -333,24 +332,22 @@ public class SubjectsForm extends javax.swing.JFrame {
 
     private void bClearAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bClearAllActionPerformed
         // TODO add your handling code here:
-                if(JOptionPane.showConfirmDialog(null, "Are you sure? It will clear all the records", "Are you sure?", JOptionPane.OK_CANCEL_OPTION) != 0 ){
+        if (JOptionPane.showConfirmDialog(null, "Are you sure? It will clear all the records", "Are you sure?", JOptionPane.OK_CANCEL_OPTION) != 0) {
             return;
         }
-         Connection con = null;
+        Connection con = null;
         Statement stmt = null;
         DBConnectTT.getConnection();
         con = DBConnectTT.connection;
-        
-        
-   
-            try {
-                stmt = con.createStatement();
-                stmt.executeUpdate("delete from "+DBInterfaceTT.TT_SUBJECT_DETAILS);
-            } catch (SQLException ex) {
-                Logger.getLogger(LecturerForm.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           retrievTableContents();
-           
+
+        try {
+            stmt = con.createStatement();
+            stmt.executeUpdate("delete from " + DBInterfaceTT.TT_SUBJECT_DETAILS);
+        } catch (SQLException ex) {
+            Logger.getLogger(LecturerForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        retrievTableContents();
+
     }//GEN-LAST:event_bClearAllActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -360,48 +357,43 @@ public class SubjectsForm extends javax.swing.JFrame {
         String sem = cbSem.getSelectedItem().toString();
         String type = cbType.getSelectedItem().toString();
         String handleBy = cbHandleBy.getSelectedItem().toString();
-        if((subCode.equals("") || subName.equals(""))){
-           JOptionPane.showMessageDialog(null, "Fields Cannnot be empty..!", "BIT_RAAT: Error", JOptionPane.OK_OPTION);
-           return;
-        }
-        Connection con = null;
-        Statement stmt = null,stmt2 = null;
-         ResultSet rs = null;
-         String Fid = null;
-         
-         
-         DBConnectTT.getConnection();
-         con = DBConnectTT.connection;
-         
-        
-            try {
-                stmt = con.createStatement();
-                rs = stmt.executeQuery("select "+DBInterfaceTT.TT_F_ID+" from "+DBInterfaceTT.TT_FACULTY_DETAILS+" where "+DBInterfaceTT.TT_F_NAME+" = '"+handleBy+"'");
-                
-                rs.next();
-                Fid = rs.getString(DBInterfaceTT.TT_F_ID);
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(SubjectsForm.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        try {
-          
-            stmt2 = con.createStatement();
-            stmt2.executeUpdate("insert into "+DBInterfaceTT.TT_SUBJECT_DETAILS+" values ('"+subCode+"','"+subName+"','"+type+"','"+Fid+"','"+sem+"')");
-            JOptionPane.showMessageDialog(null, "New Record inserted successfully...."," Error",JOptionPane.OK_OPTION);
-            retrievTableContents();
-         
+        if ((subCode.equals("") || subName.equals(""))) {
+            JOptionPane.showMessageDialog(null, "Fields Cannnot be empty..!", "BIT_RAAT: Error", JOptionPane.OK_OPTION);
             return;
         }
-        
-        catch(SQLException ex){
-           System.out.print("\nSQLExeption : "+ex.getMessage());
+        Connection con = null;
+        Statement stmt = null, stmt2 = null;
+        ResultSet rs = null;
+        String Fid = null;
+
+        DBConnectTT.getConnection();
+        con = DBConnectTT.connection;
+
+        try {
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("select " + DBInterfaceTT.TT_F_ID + " from " + DBInterfaceTT.TT_FACULTY_DETAILS + " where " + DBInterfaceTT.TT_F_NAME + " = '" + handleBy + "'");
+
+            rs.next();
+            Fid = rs.getString(DBInterfaceTT.TT_F_ID);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SubjectsForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-         JOptionPane.showMessageDialog(null, "Unable to insert this record..\nMay be this code already done, check above table","BIT-RAAT: Error",JOptionPane.OK_OPTION);
-            
-         
-        
+
+        try {
+
+            stmt2 = con.createStatement();
+            stmt2.executeUpdate("insert into " + DBInterfaceTT.TT_SUBJECT_DETAILS + " values ('" + subCode + "','" + subName + "','" + type + "','" + Fid + "','" + sem + "')");
+            JOptionPane.showMessageDialog(null, "New Record inserted successfully....", " Error", JOptionPane.OK_OPTION);
+            retrievTableContents();
+
+            return;
+        } catch (SQLException ex) {
+            System.out.print("\nSQLExeption : " + ex.getMessage());
+        }
+        JOptionPane.showMessageDialog(null, "Unable to insert this record..\nMay be this code already done, check above table", "BIT-RAAT: Error", JOptionPane.OK_OPTION);
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -429,7 +421,7 @@ public class SubjectsForm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private String previousDirectory() throws IOException {
-       BufferedReader br = null;
+        BufferedReader br = null;
         String line = "";
         try {
             br = new BufferedReader(new FileReader(".previouslySelectedDirectory.txt"));
@@ -444,13 +436,11 @@ public class SubjectsForm extends javax.swing.JFrame {
         }
         return line;
 
-
     }
 
     private void saveCurrentDirectory(String absolutePath) {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    
-        
+
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(".previouslySelectedDirectory.txt"));
             writer.write(absolutePath);
@@ -465,100 +455,95 @@ public class SubjectsForm extends javax.swing.JFrame {
 
     private void retrievTableContents() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    tmSubDetails.setRowCount(0);
-    Connection con = null,con2 = null;
-    Statement stmt = null;
-    ResultSet rs = null;
-    int rowCount = 0;
-    DBConnectTT.getConnection();
-    con = DBConnectTT.connection;
-    con2 = DBConnectTT.connection;
-    String q = "Select * from "+DBInterfaceTT.TT_SUBJECT_DETAILS;
-    
+        tmSubDetails.setRowCount(0);
+        Connection con = null, con2 = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        int rowCount = 0;
+        DBConnectTT.getConnection();
+        con = DBConnectTT.connection;
+        con2 = DBConnectTT.connection;
+        String q = "Select * from " + DBInterfaceTT.TT_SUBJECT_DETAILS;
 
-   try {
-        stmt= con.createStatement();
-        rs = stmt.executeQuery(q);
-        
-        while(rs.next()){
-            String code = rs.getString(DBInterfaceTT.TT_SUB_CODE);
-            String name = rs.getString(DBInterfaceTT.TT_SUB_SUBNAME);
-            String sem = rs.getString(DBInterfaceTT.TT_SUB_SEM);
-            String type = rs.getString(DBInterfaceTT.TT_SUB_TYPE);
-            String fid = rs.getString(DBInterfaceTT.TT_SUB_FID);
-            String fname = null;
-                     
-            String q1 ;
-            q1 = "select * from " + DBInterfaceTT.TT_FACULTY_DETAILS + " where " + DBInterfaceTT.TT_F_ID + " = '" + fid+"'";
-            
-           Statement s2 = null;
-            ResultSet r2 = null;
-         
-           s2= con2.createStatement();
-           System.out.println("connected"+q1);
-            r2 = s2.executeQuery(q1);
-           System.out.println("fetched");
-            
-            r2.next();
-            System.out.println("moved next");
-           try{
-            fname = r2.getString(DBInterfaceTT.TT_F_NAME);
-           }
-           catch (Exception e){
-               System.out.println(e.getMessage());
-           }
-            System.out.println(fname);
-            tmSubDetails.insertRow(rowCount++, new Object[]{rowCount,code,name,type,sem,fname});
-           
-            s2.close();
-            
-            r2.close();
-           
+        try {
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(q);
+
+            while (rs.next()) {
+                String code = rs.getString(DBInterfaceTT.TT_SUB_CODE);
+                String name = rs.getString(DBInterfaceTT.TT_SUB_SUBNAME);
+                String sem = rs.getString(DBInterfaceTT.TT_SUB_SEM);
+                String type = rs.getString(DBInterfaceTT.TT_SUB_TYPE);
+                String fid = rs.getString(DBInterfaceTT.TT_SUB_FID);
+                String fname = null;
+
+                String q1;
+                q1 = "select * from " + DBInterfaceTT.TT_FACULTY_DETAILS + " where " + DBInterfaceTT.TT_F_ID + " = '" + fid + "'";
+
+                Statement s2 = null;
+                ResultSet r2 = null;
+
+                s2 = con2.createStatement();
+                System.out.println("connected" + q1);
+                r2 = s2.executeQuery(q1);
+                System.out.println("fetched");
+
+                r2.next();
+                System.out.println("moved next");
+                try {
+                    fname = r2.getString(DBInterfaceTT.TT_F_NAME);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                System.out.println(fname);
+                tmSubDetails.insertRow(rowCount++, new Object[]{rowCount, code, name, type, sem, fname});
+
+                s2.close();
+
+                r2.close();
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            Logger.getLogger(LecturerForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-    } catch (SQLException ex) {
-        System.out.println(ex.getMessage());
-        Logger.getLogger(LecturerForm.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    tSubjectTable.setModel(tmSubDetails);
-    
+        tSubjectTable.setModel(tmSubDetails);
+
     }
 
     private void fillHandleBy() {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-        
+
         DBConnectTT.getConnection();
         con = DBConnectTT.connection;
         handleBy.removeAllElements();
         try {
             stmt = con.createStatement();
-            rs = stmt.executeQuery("select distinct "+DBInterfaceTT.TT_F_NAME+" from "+DBInterfaceTT.TT_FACULTY_DETAILS);
-            while(rs.next()){
+            rs = stmt.executeQuery("select distinct " + DBInterfaceTT.TT_F_NAME + " from " + DBInterfaceTT.TT_FACULTY_DETAILS);
+            while (rs.next()) {
                 ttl++;
-               handleBy.addElement(rs.getString(DBInterfaceTT.TT_F_NAME));
-                       
+                handleBy.addElement(rs.getString(DBInterfaceTT.TT_F_NAME));
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(SubjectsForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-    cbHandleBy.setModel(handleBy);
-    if(ttl<=0){
-        JOptionPane.showMessageDialog(null, "You should insert lecture details first...","No Lecture",JOptionPane.OK_OPTION);
-        new LecturerForm().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-        
-        setVisible(false);
-        dispose();
-        
-       
+
+        cbHandleBy.setModel(handleBy);
+        if (ttl <= 0) {
+            JOptionPane.showMessageDialog(null, "You should insert lecture details first...", "No Lecture", JOptionPane.OK_OPTION);
+            new LecturerForm().setVisible(true);
+            this.setVisible(false);
+            this.dispose();
+
+            setVisible(false);
+            dispose();
+
+        }
+
     }
-    
-    }
-    
+
 }

@@ -4,7 +4,6 @@
  */
 package Forms;
 
-
 import Main.TimeTableTask;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -24,34 +23,34 @@ import run.DBConnectTT;
 import run.DBInterfaceTT;
 import static run.DBInterfaceTT.TT_TT;
 
-
 /**
  *
  * @author DELL
  */
 public class TimeTableMainForm extends javax.swing.JFrame {
+
     private int count;
     private int lectureCount;
     private int subjectCount;
     private int sbpw;
-    
+
     public static JProgressBar prgrssBar;
     public boolean done = false;
     public static JLabel statusMessage;
+
     /**
      * Creates new form NewJFrame
      */
     public TimeTableMainForm() {
         initComponents();
-        
-       
-         this.setLocationRelativeTo(null);
+
+        this.setLocationRelativeTo(null);
         progressBar.setValue(progressBar.getMinimum());
         progressBar.setMinimum(0);
-       
+
         progressBar.setMaximum(100);
-        prgrssBar=progressBar;
-        statusMessage=status;
+        prgrssBar = progressBar;
+        statusMessage = status;
         cbDay.setSelectedIndex(2);
         cbHour.setSelectedIndex(3);
         getInputStatus();
@@ -329,10 +328,10 @@ public class TimeTableMainForm extends javax.swing.JFrame {
 
     private void bInputLectureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bInputLectureActionPerformed
         // TODO add your handling code here:
-        
-         new LecturerForm().setVisible(true);
-         getInputStatus();
-         setLabels();
+
+        new LecturerForm().setVisible(true);
+        getInputStatus();
+        setLabels();
     }//GEN-LAST:event_bInputLectureActionPerformed
 
     private void bInputLectureMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bInputLectureMouseClicked
@@ -341,115 +340,107 @@ public class TimeTableMainForm extends javax.swing.JFrame {
 
     private void bInputSubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bInputSubjectActionPerformed
         // TODO add your handling code here:
-         
-                new SubjectsForm().setVisible(true);
-           
-         getInputStatus();
-         setLabels1();
+
+        new SubjectsForm().setVisible(true);
+
+        getInputStatus();
+        setLabels1();
     }//GEN-LAST:event_bInputSubjectActionPerformed
 
     private void bGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGenerateActionPerformed
         // TODO add your handling code here:
-       
-       getInputStatus();
-       setLabels();
-       setLabels1();
-       getValues();
-       
-       if(lectureCount < 10 || subjectCount < 20){
-           
-           JOptionPane.showMessageDialog(null, "InSufficient Inputs..", "Try", JOptionPane.OK_OPTION);               
-           return;
-       }
-     
-       
-         
-       DBConnectTT.getConnection();  
-       Connection con = DBConnectTT.connection;
-      
+
+        getInputStatus();
+        setLabels();
+        setLabels1();
+        getValues();
+
+        if (lectureCount < 10 || subjectCount < 20) {
+
+            JOptionPane.showMessageDialog(null, "InSufficient Inputs..", "Try", JOptionPane.OK_OPTION);
+            return;
+        }
+
+        DBConnectTT.getConnection();
+        Connection con = DBConnectTT.connection;
+
         int x = JOptionPane.showConfirmDialog(null, "This will delete all your previous records\nAre you sure you want to continue ?", "New TimeTable", JOptionPane.OK_CANCEL_OPTION);
         if (x == 0) {
-          //  log("Deleting previous records !");
+            //  log("Deleting previous records !");
 
             Statement stmtSt = null;
             String querySt = " Delete  from " + TT_TT;
-            
+
             try {
                 stmtSt = con.createStatement();
                 stmtSt.executeUpdate(querySt);
-                
+
             } catch (SQLException ex) {
-               Logger.getLogger(TimeTableMainForm.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("Error : "+ex.getMessage());
+                Logger.getLogger(TimeTableMainForm.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Error : " + ex.getMessage());
             }
-            
+
             //
-             setCursor(Cursor.WAIT_CURSOR);
-           //  new TimeTable.TimeTables(isSaturdayHalf,wantCommonHour,dayOfCommon,hourOfCommon,sbpw,progressBar);
-           TimeTableTask task = new Main.TimeTableTask(isSaturdayHalf,wantCommonHour,dayOfCommon,hourOfCommon,sbpw);
-                  task.addPropertyChangeListener(
+            setCursor(Cursor.WAIT_CURSOR);
+            //  new TimeTable.TimeTables(isSaturdayHalf,wantCommonHour,dayOfCommon,hourOfCommon,sbpw,progressBar);
+            TimeTableTask task = new Main.TimeTableTask(isSaturdayHalf, wantCommonHour, dayOfCommon, hourOfCommon, sbpw);
+            task.addPropertyChangeListener(
                     new PropertyChangeListener() {
                         public void propertyChange(PropertyChangeEvent evt) {
-                          if ("progress".equals(evt.getPropertyName())) {
+                            if ("progress".equals(evt.getPropertyName())) {
                                 progressBar.setValue((Integer) evt.getNewValue());
-                                   if(done){
-                                       setCursor(Cursor.getDefaultCursor());
-                                       enableeverything();
-                                   
-                                   }
-                            
-                           }
-                        
+                                if (done) {
+                                    setCursor(Cursor.getDefaultCursor());
+                                    enableeverything();
+
+                                }
+
+                            }
+
                         }
                     });
             task.execute();
-        
-   
+
             disableeverything();
 
-        }
-        else
-        {
+        } else {
             return;
         }
-       
-               
-        
+
 
     }//GEN-LAST:event_bGenerateActionPerformed
 
     private void bNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNewActionPerformed
         // TODO add your handling code here:
-        
-       DBConnectTT.getConnection();  
-       Connection con = DBConnectTT.connection;
-      
+
+        DBConnectTT.getConnection();
+        Connection con = DBConnectTT.connection;
+
         int x = JOptionPane.showConfirmDialog(null, "This will delete all your previous records\nAre you sure you want to continue ?", "New TimeTable", JOptionPane.OK_CANCEL_OPTION);
         if (x == 0) {
-          //  log("Deleting previous records !");
+            //  log("Deleting previous records !");
 
             Statement stmtSt = null;
             String querySt = " Delete  from " + TT_TT;
-       
+
             try {
                 stmtSt = con.createStatement();
                 stmtSt.executeUpdate(querySt);
-                System.out.println("querySt : " +querySt);
+                System.out.println("querySt : " + querySt);
             } catch (SQLException ex) {
 //                log(ex.getMessage());
                 Logger.getLogger(TimeTableMainForm.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-    
-        
-        
+
+
     }//GEN-LAST:event_bNewActionPerformed
 
     private void bSeePrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSeePrevActionPerformed
         // TODO add your handling code here:
-        
-         java.awt.EventQueue.invokeLater(new Runnable() {
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TimeTableShow().setVisible(true);
             }
@@ -462,25 +453,24 @@ public class TimeTableMainForm extends javax.swing.JFrame {
 
     private void chkbCommonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkbCommonActionPerformed
                 // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_chkbCommonActionPerformed
 
     private void chkbCommonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkbCommonItemStateChanged
         Object source = evt.getItemSelectable();
-        if(source == chkbCommon){
+        if (source == chkbCommon) {
             cbDay.setEnabled(true);
             cbHour.setEnabled(true);
-        }
-        else{
+        } else {
             cbDay.setEnabled(false);
             cbHour.setEnabled(false);
         }
-        
+
     }//GEN-LAST:event_chkbCommonItemStateChanged
 
     private void bSeePrevMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bSeePrevMouseEntered
         // TODO add your handling code here:
-      //  progressBar.setValue(100);
+        //  progressBar.setValue(100);
     }//GEN-LAST:event_bSeePrevMouseEntered
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -489,9 +479,9 @@ public class TimeTableMainForm extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-       
+
        // task.cancel(true);
-       
+
     }//GEN-LAST:event_formWindowClosing
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
@@ -501,37 +491,33 @@ public class TimeTableMainForm extends javax.swing.JFrame {
         setLabels1();
     }//GEN-LAST:event_formWindowGainedFocus
 
- 
-    
     /**
      * @param args the command line arguments
      */
-    
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    try {
-                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(TimeTableMainForm.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (InstantiationException ex) {
-                        Logger.getLogger(TimeTableMainForm.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IllegalAccessException ex) {
-                        Logger.getLogger(TimeTableMainForm.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (UnsupportedLookAndFeelException ex) {
-                        Logger.getLogger(TimeTableMainForm.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    break;
+
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                try {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(TimeTableMainForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(TimeTableMainForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(TimeTableMainForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(TimeTableMainForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                break;
             }
-         
+        }
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -570,26 +556,25 @@ public class TimeTableMainForm extends javax.swing.JFrame {
     private boolean wantCommonHour;
     private int dayOfCommon;
     private int hourOfCommon;
-     
-    
+
     private void getValues() {
-   //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        if(cbSaturday.getSelectedItem().equals("Half Day")){
+        //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (cbSaturday.getSelectedItem().equals("Half Day")) {
             isSaturdayHalf = true;
-        }else{
+        } else {
             isSaturdayHalf = false;
         }
-        
-        sbpw = Integer.parseInt( cbspw.getSelectedItem().toString());
-        
+
+        sbpw = Integer.parseInt(cbspw.getSelectedItem().toString());
+
         wantCommonHour = chkbCommon.isSelected();
-        
+
         dayOfCommon = cbDay.getSelectedIndex();
         hourOfCommon = cbHour.getSelectedIndex();
     }
 
     public void getInputStatus() {
-     //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         Connection con = null;
         Statement st = null;
         ResultSet rs = null;
@@ -597,19 +582,19 @@ public class TimeTableMainForm extends javax.swing.JFrame {
         con = DBConnectTT.connection;
         try {
             st = con.createStatement();
-            rs = st.executeQuery("select * from "+DBInterfaceTT.TT_FACULTY_DETAILS);
-            while(rs.next()){
+            rs = st.executeQuery("select * from " + DBInterfaceTT.TT_FACULTY_DETAILS);
+            while (rs.next()) {
                 lectureCount++;
             }
         } catch (SQLException ex) {
             Logger.getLogger(TimeTableMainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-                con = DBConnectTT.connection;
+
+        con = DBConnectTT.connection;
         try {
             st = con.createStatement();
-            rs = st.executeQuery("select * from "+DBInterfaceTT.TT_SUBJECT_DETAILS);
-            while(rs.next()){
+            rs = st.executeQuery("select * from " + DBInterfaceTT.TT_SUBJECT_DETAILS);
+            while (rs.next()) {
                 subjectCount++;
             }
         } catch (SQLException ex) {
@@ -618,83 +603,79 @@ public class TimeTableMainForm extends javax.swing.JFrame {
     }
 
     public void setLabels() {
-     //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    if(lectureCount < 1){
-        lLeactureStatus.setText("No Data");
-        lLeactureStatus.setForeground(Color.RED);
+        //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (lectureCount < 1) {
+            lLeactureStatus.setText("No Data");
+            lLeactureStatus.setForeground(Color.RED);
+            return;
+
+        }
+        if (lectureCount < 5) {
+            lLeactureStatus.setText("Low Data");
+            lLeactureStatus.setForeground(Color.RED);
+            return;
+        }
+        if (lectureCount < 10) {
+            lLeactureStatus.setText("Not Enough, will try");
+            lLeactureStatus.setForeground(Color.ORANGE);
+            return;
+        }
+        if (lectureCount <= 12) {
+            lLeactureStatus.setText("Ok");
+            lLeactureStatus.setForeground(Color.green);
+            return;
+        }
+
+        lLeactureStatus.setText("Good");
+        lLeactureStatus.setForeground(Color.GREEN);
         return;
-        
+
     }
-    if(lectureCount < 5){
-        lLeactureStatus.setText("Low Data");
-        lLeactureStatus.setForeground(Color.RED);
-        return;
-    }
-    if(lectureCount < 10){
-        lLeactureStatus.setText("Not Enough, will try");
-        lLeactureStatus.setForeground(Color.ORANGE);
-        return;
-    }
-    if(lectureCount <= 12){
-        lLeactureStatus.setText("Ok");
-        lLeactureStatus.setForeground(Color.green);
-        return;
-    }
-    
-    lLeactureStatus.setText("Good");
-    lLeactureStatus.setForeground(Color.GREEN);
-    return;
-    
-    
-    
-    }
+
     public void setLabels1() {
-     //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    if(subjectCount < 1){
-        lSubjectStatus.setText("No Data");
-        lSubjectStatus.setForeground(Color.RED);
+        //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (subjectCount < 1) {
+            lSubjectStatus.setText("No Data");
+            lSubjectStatus.setForeground(Color.RED);
+            return;
+
+        }
+        if (subjectCount < 5) {
+            lSubjectStatus.setText("Low Data");
+            lSubjectStatus.setForeground(Color.RED);
+            return;
+        }
+        if (subjectCount < 10) {
+            lSubjectStatus.setText("Less than 10 Subject");
+            lSubjectStatus.setForeground(Color.ORANGE);
+            return;
+        }
+        if (subjectCount <= 20) {
+            lSubjectStatus.setText("Ok");
+            lSubjectStatus.setForeground(Color.green);
+            return;
+        }
+
+        lSubjectStatus.setText("Good");
+        lSubjectStatus.setForeground(Color.GREEN);
         return;
-        
-    }
-    if(subjectCount < 5){
-        lSubjectStatus.setText("Low Data");
-        lSubjectStatus.setForeground(Color.RED);
-        return;
-    }
-    if(subjectCount < 10){
-        lSubjectStatus.setText("Less than 10 Subject");
-        lSubjectStatus.setForeground(Color.ORANGE);
-        return;
-    }
-    if(subjectCount <= 20){
-        lSubjectStatus.setText("Ok");
-        lSubjectStatus.setForeground(Color.green);
-        return;
-    }
-    
-    lSubjectStatus.setText("Good");
-    lSubjectStatus.setForeground(Color.GREEN);
-    return;
-    
-    
-    
+
     }
 
     private void disableeverything() {
-        
-    bGenerate.setEnabled(false);
-    bInputLecture.setEnabled(false);
-    bInputSubject.setEnabled(false);
-    bSeePrev.setEnabled(false);
-    }
-    
-    public void enableeverything() {
-        
-    bGenerate.setEnabled(true);
-    bInputLecture.setEnabled(true);
-    bInputSubject.setEnabled(true);
-    bSeePrev.setEnabled(true);
+
+        bGenerate.setEnabled(false);
+        bInputLecture.setEnabled(false);
+        bInputSubject.setEnabled(false);
+        bSeePrev.setEnabled(false);
     }
 
-  
+    public void enableeverything() {
+
+        bGenerate.setEnabled(true);
+        bInputLecture.setEnabled(true);
+        bInputSubject.setEnabled(true);
+        bSeePrev.setEnabled(true);
+    }
+
 }

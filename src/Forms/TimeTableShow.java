@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Forms;
 
 import Main.SaveTimeTable;
@@ -32,24 +31,25 @@ public class TimeTableShow extends javax.swing.JFrame {
      * Creates new form BIT_TimeTable
      */
     //TimeTables ourTT;
-    DefaultTableModel  tmBatch[];
-    private String[] dayOf = {"Mon","Tue","Wed","Thur","Fri","Sat"};
+    DefaultTableModel tmBatch[];
+    private String[] dayOf = {"Mon", "Tue", "Wed", "Thur", "Fri", "Sat"};
+
     public TimeTableShow() {
         initComponents();
-       // ourTT = new TimeTables();
+        // ourTT = new TimeTables();
         tmBatch = new DefaultTableModel[3];
-        
-        for(int i=0;i<TimeTables.noOfBatches;i++){
+
+        for (int i = 0; i < TimeTables.noOfBatches; i++) {
             tmBatch[i] = new DefaultTableModel();
-            for(int j = 0;j< 8;j++){
-                tmBatch[i].addColumn("Hour-"+j);
+            for (int j = 0; j < 8; j++) {
+                tmBatch[i].addColumn("Hour-" + j);
             }
-                    
+
         }
         tTTb1.setModel(tmBatch[0]);
         tTTb2.setModel(tmBatch[1]);
         tTTb3.setModel(tmBatch[2]);
-        
+
         writeToTable();
     }
 
@@ -208,7 +208,7 @@ public class TimeTableShow extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_formWindowClosing
 
     private void bSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSaveActionPerformed
@@ -235,7 +235,6 @@ public class TimeTableShow extends javax.swing.JFrame {
      * @param args the command line arguments
      */
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PrintPanel;
     private javax.swing.JButton bPrint;
@@ -255,33 +254,32 @@ public class TimeTableShow extends javax.swing.JFrame {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-        
+
         DBConnectTT.getConnection();
         con = DBConnectTT.connection;
-        
-        for(int i=0;i<3;i++){
-            for(int j = 0;j < 6;j++){
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 6; j++) {
                 String rowOfCodes[] = null;
                 rowOfCodes = new String[8];
                 rowOfCodes[0] = dayOf[j];
-                
-                for(int k=0;k< 7;k++){
-                    String q = "select * from "+TT_TT+ " where "+DBInterfaceTT.TT_batch+" = "+i+" and "+DBInterfaceTT.TT_rowid+" = "+j+" and "+DBInterfaceTT.TT_colid+" = "+k;
+
+                for (int k = 0; k < 7; k++) {
+                    String q = "select * from " + TT_TT + " where " + DBInterfaceTT.TT_batch + " = " + i + " and " + DBInterfaceTT.TT_rowid + " = " + j + " and " + DBInterfaceTT.TT_colid + " = " + k;
                     try {
                         stmt = con.createStatement();
                         rs = stmt.executeQuery(q);
                         rs.next();
-                        rowOfCodes[k+1] = rs.getString(DBInterfaceTT.TT_code);
+                        rowOfCodes[k + 1] = rs.getString(DBInterfaceTT.TT_code);
                     } catch (SQLException ex) {
                         Logger.getLogger(TimeTableShow.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
-                    
+
                 }
                 tmBatch[i].insertRow(j, rowOfCodes);
-                        System.out.println("addind row "+(i*j));
+                System.out.println("addind row " + (i * j));
             }
         }
-    
+
     }
 }

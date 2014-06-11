@@ -3,23 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package TimeTable;
 
 /**
  *
- * @author ashik
+ * @author
  */
 public class TimeTable {
+
     public DaySlots daySlots[];
-    
-    TimeTable(){
+
+    TimeTable() {
         daySlots = new DaySlots[6];
-        for(int i=0;i<6;i++){
+        for (int i = 0; i < 6; i++) {
             daySlots[i] = new DaySlots();
             daySlots[i].daySlotId = i;
         }
-        
+
     }
-    
+
 }

@@ -7,7 +7,7 @@ package run;
 
 /**
  *
- * @author RAAT
+ * @author nawaf
  */
 public interface DBInterfaceTT {
 
@@ -19,20 +19,19 @@ public interface DBInterfaceTT {
     //FACULTY_DETAILS table attributes
     String TT_F_ID = "fid";
     String TT_F_NAME = "name";
-    
+
     //SUBJECT_DETAILS table attributes
     String TT_SUB_CODE = "code";
     String TT_SUB_SUBNAME = "subname";
     String TT_SUB_SEM = "sem";
     String TT_SUB_FID = "fid";
     String TT_SUB_TYPE = "type";
-    
+
     //CLSS ROOM DETAILS
-    
     String TT_CR_NO = "roomno";
     String TT_CR_TYPE = "typ";
     String TT_CR_STRENGTH = "strn";
-    
+
     //TT
     String TT_batch = "batchno";
     String TT_rowid = "rowid";
