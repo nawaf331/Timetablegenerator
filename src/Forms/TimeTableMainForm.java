@@ -16,7 +16,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 import javax.swing.UnsupportedLookAndFeelException;
 import run.DBConnectTT;
 import run.DBInterfaceTT;
@@ -33,9 +35,9 @@ public class TimeTableMainForm extends javax.swing.JFrame {
     private int subjectCount;
     private int sbpw;
     
-    public static TimeTableMainForm ttmfCopy;
+    public static JProgressBar prgrssBar;
     public boolean done = false;
-    
+    public static JLabel statusMessage;
     /**
      * Creates new form NewJFrame
      */
@@ -48,7 +50,8 @@ public class TimeTableMainForm extends javax.swing.JFrame {
         progressBar.setMinimum(0);
        
         progressBar.setMaximum(100);
-        
+        prgrssBar=progressBar;
+        statusMessage=status;
         cbDay.setSelectedIndex(2);
         cbHour.setSelectedIndex(3);
         getInputStatus();
@@ -448,7 +451,7 @@ public class TimeTableMainForm extends javax.swing.JFrame {
         
          java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BIT_TimeTable().setVisible(true);
+                new TimeTableShow().setVisible(true);
             }
         });
     }//GEN-LAST:event_bSeePrevActionPerformed

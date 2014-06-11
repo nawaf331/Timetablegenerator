@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import run.DBConnectTT;
@@ -49,8 +50,11 @@ public class TimeTables {
     private final int sbjctpw;
     //TimeTableMainForm ttmfObject;   
     JProgressBar pb;
+    JLabel st;
     public TimeTables(boolean isSaturdayHalf,boolean wantCommonHour, int dayOfCommon,int hourOfCommon,int sbpw){
     //  ttmfObject = TimeTableMainForm.ttmfCopy;
+        pb=Forms.TimeTableMainForm.prgrssBar;
+        st=Forms.TimeTableMainForm.statusMessage;
         noOfSubjects = getTotalSubjects();
         timetable = new TimeTable[noOfBatches];
         listOfSubjects = new Subject[noOfSubjects];
@@ -68,7 +72,7 @@ public class TimeTables {
         }
         
         seminar = new Subject();
-        seminar.setValue("BITSP","Sem/Pjct", "sem", "8", "ss");
+        seminar.setValue("SP","Sem/Pjct", "sem", "8", "ss");
         
         fetchData();
         checkTheSem();
@@ -104,11 +108,11 @@ public class TimeTables {
         
        // ttmf.setStatus("Fething input Data...");
     //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        //ttmfObject.progressBar.setValue(0);
-        //ttmfObject.status.setText("Fetchind input data..(1/3)");
+        pb.setValue(0);
+        st.setText("Fetchind input data..(1/3)");
         System.out.println("Fetching subject details from database..\n");
-       // ttmfObject.progressBar.setValue(0);
-       // ttmfObject.status.setText("Fetchind input data..(1/3)");
+       pb.setValue(0);
+       st.setText("Fetchind input data..(1/3)");
        
         DBConnectTT.getConnection();
         Connection con = DBConnectTT.connection;
@@ -116,7 +120,7 @@ public class TimeTables {
         Statement stmt = null;
         ResultSet rs = null;
         int loopcount = 0;
-        TimeTableMainForm ttmf;
+        
         String query = "select * from "+DBInterfaceTT.TT_SUBJECT_DETAILS;
         System.out.println("Query Timetables : "+ query);
         try {
@@ -124,7 +128,8 @@ public class TimeTables {
             rs = stmt.executeQuery(query);
             
             while(rs.next()){
-          //      ttmfObject.progressBar.setValue(loopcount*4);
+                
+                pb.setValue(loopcount*4);
                 String code = rs.getString(DBInterfaceTT.TT_SUB_CODE);
                 String name = rs.getString(DBInterfaceTT.TT_SUB_SUBNAME);
                 String type = rs.getString(DBInterfaceTT.TT_SUB_TYPE);
@@ -134,7 +139,7 @@ public class TimeTables {
                 System.out.println(code+" is fetched successfully");
                 
             }
-            //ttmfObject.progressBar.setValue(100);
+            pb.setValue(100);
            System.out.println("Fetching complete....");
             
         } catch (SQLException ex) {
@@ -151,9 +156,9 @@ public class TimeTables {
  
         //hrow new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         System.out.println("inside generate..");
-        //ttmfObject.progressBar.setValue(0);
-       // ttmfObject.status.setText("Generating... (2/3)");
-       // ttmfObject.progressBar.setMaximum((listOfSubjects.length) * Subject.noOfHoursPerSubject - 20 );
+        pb.setValue(0);
+       st.setText("Generating... (2/3)");
+       pb.setMaximum((listOfSubjects.length) * Subject.noOfHoursPerSubject - 20 );
         for(int i=0;i<listOfSubjects.length;i++){
                 if(listOfSubjects[i].type.equals("lab")){
                     lookFor(listOfSubjects[i]);
@@ -181,7 +186,7 @@ public class TimeTables {
 
             
         }
-      //  ttmfObject.progressBar.setValue(ttmfObject.progressBar.getMaximum());
+      pb.setValue(pb.getMaximum());
 
    
         
@@ -230,7 +235,7 @@ public class TimeTables {
 
     private void lookFor(Subject subject) {
        
-//        ttmf.setStatus("Subject placed : "+totalPlaced+"/"+noOfSubjects);
+       // ttmf.setStatus("Subject placed : "+totalPlaced+"/"+noOfSubjects);
             System.out.println("Looking for "+subject.code);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         int year = (Integer.parseInt(subject.sem) +1)/2; 
@@ -537,7 +542,7 @@ public class TimeTables {
             System.out.println("subject "+subject.code+" is placed in batch : "+b+", ds : "+ds+", s : "+s);
             System.out.println(subject.code+" has "+subject.slotsRemaining+" slots remining");
             System.out.println("Total subjects  placed : "+(++totalPlaced));
-//        ttmfObject.progressBar.setValue(totalPlaced);         
+pb.setValue(totalPlaced);         
         
         
     }
@@ -671,7 +676,7 @@ public class TimeTables {
 
     public void display() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        System.out.println("\t\tBIT-RAAT Timetable");
+        System.out.println("\t\t Timetable");
         for(int i = 0;i<3;i++){
             System.out.println("\n\t\t TimeTable of Batch "+(i+1));
             for(int j = 0; j < 6;j++){
@@ -749,9 +754,9 @@ public class TimeTables {
         return returnvalue;   }
 
     private void updateDataBase() {
-//        ttmfObject.status.setText("Saving into DataBase (3/3)");
-  //      ttmfObject.progressBar.setValue(0);
-    //    ttmfObject.progressBar.setMaximum(noOfBatches * DaySlots.noOfDaysinAWeek * Slot.noOfSlotsInADay);
+st.setText("Saving into DataBase (3/3)");
+  pb.setValue(0);
+   pb.setMaximum(noOfBatches * DaySlots.noOfDaysinAWeek * Slot.noOfSlotsInADay);
         Connection con = null;
         int loopcount = 0;
         Statement stmt = null;
@@ -774,14 +779,14 @@ public class TimeTables {
                     } catch (SQLException ex) {
                         Logger.getLogger(TimeTables.class.getName()).log(Level.SEVERE, null, ex);
                     }
-//                    ttmfObject.progressBar.setValue(loopcount++);
+pb.setValue(loopcount++);
                     
-                    System.out.println("Insertying "+cod+" to database");
+                    System.out.println("Inserting "+cod+" to database");
                 }
             }
         }
-   //     ttmfObject.progressBar.setValue(ttmfObject.progressBar.getMaximum());
-     //   ttmfObject.status.setText("Done...!");
+   pb.setValue(pb.getMaximum());
+     st.setText("Done...!");
     }
 
     private boolean placeInFreeSlot(Subject orgSub, int batch) {

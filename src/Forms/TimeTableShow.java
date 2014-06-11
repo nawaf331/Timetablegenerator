@@ -26,7 +26,7 @@ import static run.DBInterfaceTT.TT_TT;
  *
  * @author ashik
  */
-public class BIT_TimeTable extends javax.swing.JFrame {
+public class TimeTableShow extends javax.swing.JFrame {
 
     /**
      * Creates new form BIT_TimeTable
@@ -34,7 +34,7 @@ public class BIT_TimeTable extends javax.swing.JFrame {
     //TimeTables ourTT;
     DefaultTableModel  tmBatch[];
     private String[] dayOf = {"Mon","Tue","Wed","Thur","Fri","Sat"};
-    public BIT_TimeTable() {
+    public TimeTableShow() {
         initComponents();
        // ourTT = new TimeTables();
         tmBatch = new DefaultTableModel[3];
@@ -62,27 +62,27 @@ public class BIT_TimeTable extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         bPrint = new javax.swing.JButton();
         bSave = new javax.swing.JButton();
         PrintPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tTTb1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tTTb2 = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         tTTb3 = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tTTb1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Generated timetable");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
-
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("BIT-TimeTable");
 
         bPrint.setText("Print");
         bPrint.addActionListener(new java.awt.event.ActionListener() {
@@ -97,19 +97,6 @@ public class BIT_TimeTable extends javax.swing.JFrame {
                 bSaveActionPerformed(evt);
             }
         });
-
-        tTTb1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Batch 1", "Hour 1", "Hour 2", "Hour 3", "Hour 4", "Hour 5", "Hour 6", "Hour 7", "Hour 8"
-            }
-        ));
-        jScrollPane1.setViewportView(tTTb1);
 
         tTTb2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -137,37 +124,56 @@ public class BIT_TimeTable extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(tTTb3);
 
+        tTTb1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Batch 1", "Hour 1", "Hour 2", "Hour 3", "Hour 4", "Hour 5", "Hour 6", "Hour 7", "Hour 8"
+            }
+        ));
+        jScrollPane1.setViewportView(tTTb1);
+
+        jLabel1.setText("2nd year");
+
+        jLabel5.setText("3rd year");
+
+        jLabel6.setText("4th year");
+
         javax.swing.GroupLayout PrintPanelLayout = new javax.swing.GroupLayout(PrintPanel);
         PrintPanel.setLayout(PrintPanelLayout);
         PrintPanelLayout.setHorizontalGroup(
             PrintPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PrintPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PrintPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PrintPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2))
-                .addContainerGap())
-            .addGroup(PrintPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(PrintPanelLayout.createSequentialGroup()
-                    .addContainerGap()
+                .addGroup(PrintPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1137, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
-                    .addContainerGap()))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jScrollPane2))
+                .addGap(23, 23, 23))
         );
         PrintPanelLayout.setVerticalGroup(
             PrintPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PrintPanelLayout.createSequentialGroup()
-                .addContainerGap(151, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(PrintPanelLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
-            .addGroup(PrintPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(PrintPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(322, Short.MAX_VALUE)))
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,37 +181,26 @@ public class BIT_TimeTable extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(1047, 1047, 1047)
-                        .addComponent(bSave)
-                        .addGap(26, 26, 26)
-                        .addComponent(bPrint)))
-                .addContainerGap(38, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(29, Short.MAX_VALUE)
-                    .addComponent(PrintPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(29, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(PrintPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bSave)
+                .addGap(40, 40, 40)
+                .addComponent(bPrint)
+                .addGap(110, 110, 110))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 492, Short.MAX_VALUE)
+                .addComponent(PrintPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bPrint)
-                    .addComponent(bSave))
-                .addGap(24, 24, 24))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(43, Short.MAX_VALUE)
-                    .addComponent(PrintPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(64, Short.MAX_VALUE)))
+                    .addComponent(bSave)
+                    .addComponent(bPrint))
+                .addGap(7, 7, 7))
         );
 
         pack();
@@ -246,6 +241,8 @@ public class BIT_TimeTable extends javax.swing.JFrame {
     private javax.swing.JButton bPrint;
     private javax.swing.JButton bSave;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -276,7 +273,7 @@ public class BIT_TimeTable extends javax.swing.JFrame {
                         rs.next();
                         rowOfCodes[k+1] = rs.getString(DBInterfaceTT.TT_code);
                     } catch (SQLException ex) {
-                        Logger.getLogger(BIT_TimeTable.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(TimeTableShow.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
                     

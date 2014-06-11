@@ -6,7 +6,7 @@
 
 package Main;
 
-import Forms.BIT_TimeTable;
+import Forms.TimeTableShow;
 import javax.swing.SwingWorker;
 
 /**
@@ -35,7 +35,7 @@ public class TimeTableTask extends SwingWorker<Integer, Integer> {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     new TimeTable.TimeTables(isSaturdayHalf,wantCommonHour,dayOfCommon,hourOfCommon,sbpw);
        // setProgress(10);
-      new BIT_TimeTable().setVisible(true);
+      new TimeTableShow().setVisible(true);
     return 1;
     }
     
