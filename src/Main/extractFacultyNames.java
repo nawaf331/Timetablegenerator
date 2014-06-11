@@ -29,8 +29,6 @@ public class extractFacultyNames {
     }
 
     public Faculty getNameList(String inFile) {
-        //MainForm.log("File selected : " + inFile);
-        //MainForm.log("Extracting USN from input file..\nPlease wait ....");
         BufferedReader br;
         Pattern id = Pattern.compile("^[a-zA-Z0-9]+");
 
@@ -55,15 +53,12 @@ public class extractFacultyNames {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             allExtractSuccess = false;
-            //MainForm.logError("Error :" + e.getMessage());
-            //JOptionPane.showMessageDialog(null, e);
             //Logger.getLogger(EnterUsnForm.class.getName()).log(Level.SEVERE, null, e);
         }
 
         if (!allExtractSuccess) {
             JOptionPane.showMessageDialog(null, "Some names have not been added \n Please check the input file for the correct format");
         }
-//        MainForm.log("USN extracted");
         return f;
     }
 }

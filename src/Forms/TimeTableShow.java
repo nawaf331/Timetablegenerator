@@ -28,7 +28,7 @@ import static run.DBInterfaceTT.TT_TT;
 public class TimeTableShow extends javax.swing.JFrame {
 
     /**
-     * Creates new form BIT_TimeTable
+     * Creates new form TimeTable
      */
     //TimeTables ourTT;
     DefaultTableModel tmBatch[];

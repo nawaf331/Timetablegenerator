@@ -62,7 +62,6 @@ public class SaveTimeTable {
                 bfw = new BufferedWriter(new FileWriter(fileName + ".csv"));
 
                 while (batch < 3) {
-            //    Forms.MainForm.log("Writing to File" + fileName);
                     //bfw.write("hello world");
                     for (int i = 0; i < dataModel[batch].getColumnCount(); i++) {
                         try {
@@ -92,13 +91,11 @@ public class SaveTimeTable {
                 }
                 bfw.close();
                 JOptionPane.showMessageDialog(null, "Saved", "saved", JOptionPane.OK_OPTION);
-                //Forms.MainForm.log("Save Complete");
+                
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
                 Logger.getLogger(SaveTimeTable.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "Error in Saving", "Error", JOptionPane.OK_OPTION);
-
-                //Forms.MainForm.logError("Error Saving File");
             }
         }
     }

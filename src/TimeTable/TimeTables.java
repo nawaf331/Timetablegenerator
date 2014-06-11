@@ -20,7 +20,7 @@ import static run.DBInterfaceTT.TT_TT;
 
 /**
  *
- * @author ashik
+ * @author nawaf
  */
 public class TimeTables {
 

@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class DBConnectTT implements DBInterfaceTT {
 
@@ -20,15 +22,12 @@ public final class DBConnectTT implements DBInterfaceTT {
         try {
             Class.forName(driver);
             connection = DriverManager.getConnection(DB_URL);
-            //Forms.MainForm.log("Connecting to database : Successfull");
             System.out.println("Connected to database...");
         } catch (SQLException ex) {
-            //Logger.getLogger(DBConnectTT.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBConnectTT.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Cant connect");
-            //Forms.MainForm.log("Connecting to database : Failed");
         } catch (ClassNotFoundException ex) {
-            //Forms.MainForm.log("Connecting to database : Failed - Driver error");
-            //Logger.getLogger(DBConnectTT.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBConnectTT.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         Statement stmt, stmt1, stmt2, stmt3;
@@ -43,7 +42,6 @@ public final class DBConnectTT implements DBInterfaceTT {
             System.out.println("faculty_details created");
         } catch (SQLException ex) {
             //Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
-            //Forms.MainForm.log("Database attributes already exists");
             System.out.println("DBCONNECT-GETconnection-try-catch" + ex.getMessage());
         }
         try {
@@ -52,7 +50,6 @@ public final class DBConnectTT implements DBInterfaceTT {
             System.out.println("subject_details created");
         } catch (SQLException ex) {
             //Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
-            //Forms.MainForm.log("Database attributes already exists");
             System.out.println("DBCONNECT-GETconnection-try-catch" + ex.getMessage());
         }
         try {
@@ -61,7 +58,6 @@ public final class DBConnectTT implements DBInterfaceTT {
             System.out.println("class room created");
         } catch (SQLException ex) {
             //Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
-            //Forms.MainForm.log("Database attributes already exists");
             System.out.println("DBCONNECT-GETconnection-try-catch" + ex.getMessage());
         }
         try {
@@ -70,10 +66,8 @@ public final class DBConnectTT implements DBInterfaceTT {
             System.out.println("TimeTable DB table  created");
         } catch (SQLException ex) {
             //Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
-            //Forms.MainForm.log("Database attributes already exists");
             System.out.println("DBCONNECT-GETconnection-try-catch" + ex.getMessage());
         }
 
-//            Forms.MainForm.log("Initializing Database : Successfull");
     }
 }

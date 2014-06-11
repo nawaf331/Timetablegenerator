@@ -6,6 +6,7 @@
 package Main;
 
 import Forms.TimeTableShow;
+import TimeTable.TimeTables;
 import javax.swing.SwingWorker;
 
 /**
@@ -33,7 +34,7 @@ public class TimeTableTask extends SwingWorker<Integer, Integer> {
     @Override
     protected Integer doInBackground() throws Exception {
         // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        new TimeTable.TimeTables(isSaturdayHalf, wantCommonHour, dayOfCommon, hourOfCommon, sbpw);
+        TimeTables timeTables = new TimeTable.TimeTables(isSaturdayHalf, wantCommonHour, dayOfCommon, hourOfCommon, sbpw);
         // setProgress(10);
         new TimeTableShow().setVisible(true);
         return 1;

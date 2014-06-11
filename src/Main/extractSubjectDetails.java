@@ -23,8 +23,6 @@ public class extractSubjectDetails {
     }
 
     public Subjects getSubjectDetails(String inFile) {
-        //MainForm.log("File selected : " + inFile);
-        //MainForm.log("Extracting USN from input file..\nPlease wait ....");
         BufferedReader br;
 
         try {
@@ -49,15 +47,12 @@ public class extractSubjectDetails {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             allExtractSuccess = false;
-            //MainForm.logError("Error :" + e.getMessage());
-            //JOptionPane.showMessageDialog(null, e);
             //Logger.getLogger(EnterUsnForm.class.getName()).log(Level.SEVERE, null, e);
         }
 
         if (!allExtractSuccess) {
             JOptionPane.showMessageDialog(null, "Some names have not been added \n Please check the input file for the correct format");
         }
-//        MainForm.log("USN extracted");
         return s;
     }
 }

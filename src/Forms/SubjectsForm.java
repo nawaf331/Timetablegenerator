@@ -358,7 +358,7 @@ public class SubjectsForm extends javax.swing.JFrame {
         String type = cbType.getSelectedItem().toString();
         String handleBy = cbHandleBy.getSelectedItem().toString();
         if ((subCode.equals("") || subName.equals(""))) {
-            JOptionPane.showMessageDialog(null, "Fields Cannnot be empty..!", "BIT_RAAT: Error", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(null, "Fields Cannnot be empty..!", "Error", JOptionPane.OK_OPTION);
             return;
         }
         Connection con = null;
@@ -391,7 +391,7 @@ public class SubjectsForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.print("\nSQLExeption : " + ex.getMessage());
         }
-        JOptionPane.showMessageDialog(null, "Unable to insert this record..\nMay be this code already done, check above table", "BIT-RAAT: Error", JOptionPane.OK_OPTION);
+        JOptionPane.showMessageDialog(null, "Unable to insert this record..\nMay be this code already done, check above table", "Error", JOptionPane.OK_OPTION);
 
 
     }//GEN-LAST:event_jButton1ActionPerformed

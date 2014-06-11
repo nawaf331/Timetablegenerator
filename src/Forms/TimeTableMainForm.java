@@ -590,7 +590,6 @@ public class TimeTableMainForm extends javax.swing.JFrame {
             Logger.getLogger(TimeTableMainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        con = DBConnectTT.connection;
         try {
             st = con.createStatement();
             rs = st.executeQuery("select * from " + DBInterfaceTT.TT_SUBJECT_DETAILS);
